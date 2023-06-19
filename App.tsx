@@ -7,6 +7,7 @@ import SignUp from './src/screens/SignUp';
 import Home from './src/screens/Home';
 import {Provider} from 'react-redux';
 import store from './src/Redux/Store/Store';
+import MenuItems from './src/components/MenuItems';
 
 const Stack = createNativeStackNavigator();
 
@@ -35,6 +36,11 @@ const App = () => {
             component={Home}
             options={{header: () => null}}
           />
+          <Stack.Screen
+            name="Menu"
+            component={MenuItems}
+            options={{header: () => null}}
+          />
         </Stack.Navigator>
       </NavigationContainer>
     </Provider>
@@ -42,5 +48,3 @@ const App = () => {
 };
 
 export default App;
-
-// GME52U7Z

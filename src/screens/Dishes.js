@@ -2,6 +2,7 @@
 import {
   FlatList,
   Image,
+  Pressable,
   SafeAreaView,
   StyleSheet,
   Text,
@@ -16,7 +17,7 @@ import {SliderAction} from '../Redux/Action/SliderAction';
 import {ResturantAction} from '../Redux/Action/ResturantAction';
 import Location from '../components/Location';
 
-const Dishes = () => {
+const Dishes = ({navigation}) => {
   const dispatch = useDispatch();
   const caroselimg = useSelector(state => state.carousel);
   const resturantimg = useSelector(state => state.resturants);
@@ -81,81 +82,84 @@ const Dishes = () => {
       </Text>
       {/* Restaurants */}
       <FlatList
+        showsVerticalScrollIndicator={false}
         data={resturantimg}
         renderItem={({item}) => (
-          <View
-            style={{
-              display: 'flex',
-              flexDirection: 'row',
-              gap: 10,
-              marginBottom: 10,
-              paddingHorizontal: 5,
-            }}>
-            <Image
-              source={{
-                uri: `https://res.cloudinary.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_508,h_320,c_fill/${item?.data?.cloudinaryImageId}`,
-              }}
+          <Pressable onPress={() => navigation.navigate('Menu')}>
+            <View
               style={{
-                height: 180,
-                width: 150,
-                borderRadius: 15,
-              }}
-            />
-            <View style={{width: 250, marginTop: 10}}>
-              <Text
-                numberOfLines={1}
-                style={{fontSize: 18, fontWeight: 'bold', color: 'black'}}>
-                {item?.data?.name}
-              </Text>
-              <View
+                display: 'flex',
+                flexDirection: 'row',
+                gap: 10,
+                marginBottom: 10,
+                paddingHorizontal: 5,
+              }}>
+              <Image
+                source={{
+                  uri: `https://res.cloudinary.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_508,h_320,c_fill/${item?.data?.cloudinaryImageId}`,
+                }}
                 style={{
-                  display: 'flex',
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                  gap: 5,
-                }}>
-                <Image
-                  source={require('../../assests/images/star2.png')}
-                  style={{
-                    height: 20,
-                    width: 20,
-                  }}
-                />
-                <Text
-                  style={{fontSize: 16, fontWeight: 'bold', color: 'black'}}>
-                  {item?.data?.avgRating}
-                </Text>
-                <Text
-                  style={{
-                    color: 'black',
-                    fontWeight: 'bold',
-                  }}>{`(${item?.data?.totalRatingsString})`}</Text>
-
+                  height: 180,
+                  width: 150,
+                  borderRadius: 15,
+                }}
+              />
+              <View style={{width: 250, marginTop: 10}}>
                 <Text
                   numberOfLines={1}
-                  style={{fontSize: 12, fontWeight: 'bold', color: 'black'}}>
-                  &bull; {item?.data?.slaString}
+                  style={{fontSize: 18, fontWeight: 'bold', color: 'black'}}>
+                  {item?.data?.name}
                 </Text>
-              </View>
-              <Text numberOfLines={1}>{item?.data?.cuisines + ' '}</Text>
-              <View style={{display: 'flex', flexDirection: 'row', gap: 10}}>
-                <Text>{item?.data?.area}</Text>
-                <Text
-                  style={{fontSize: 14, fontWeight: 'bold', color: 'black'}}>
-                  &bull; {item?.data?.lastMileTravelString}
-                </Text>
-              </View>
-              <View style={styles.freedel}>
-                <Image
-                  source={require('../../assests/images/scooter.png')}
-                  style={styles.scooty}
-                />
-                <Text style={{fontWeight: 'bold', color: '#600af5'}}>
-                  FREE DELIVERY
-                </Text>
+                <View
+                  style={{
+                    display: 'flex',
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    gap: 5,
+                  }}>
+                  <Image
+                    source={require('../../assests/images/star2.png')}
+                    style={{
+                      height: 20,
+                      width: 20,
+                    }}
+                  />
+                  <Text
+                    style={{fontSize: 16, fontWeight: 'bold', color: 'black'}}>
+                    {item?.data?.avgRating}
+                  </Text>
+                  <Text
+                    style={{
+                      color: 'black',
+                      fontWeight: 'bold',
+                    }}>{`(${item?.data?.totalRatingsString})`}</Text>
+
+                  <Text
+                    numberOfLines={1}
+                    style={{fontSize: 12, fontWeight: 'bold', color: 'black'}}>
+                    &bull; {item?.data?.slaString}
+                  </Text>
+                </View>
+                <Text numberOfLines={1}>{item?.data?.cuisines + ' '}</Text>
+                <View style={{display: 'flex', flexDirection: 'row', gap: 10}}>
+                  <Text>{item?.data?.area}</Text>
+                  <Text
+                    style={{fontSize: 14, fontWeight: 'bold', color: 'black'}}>
+                    &bull; {item?.data?.lastMileTravelString}
+                  </Text>
+                </View>
+                <View style={styles.freedel}>
+                  <Image
+                    source={require('../../assests/images/scooter.png')}
+                    style={styles.scooty}
+                  />
+                  <Text style={{fontWeight: 'bold', color: '#600af5'}}>
+                    FREE DELIVERY
+                  </Text>
+                </View>
               </View>
             </View>
-          </View>
+          </Pressable>
         )}
       />
     </SafeAreaView>
@@ -190,5 +194,3 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
 });
-
-// https://naveensutar.github.io/FoodData/menuItem.json
