@@ -19,9 +19,11 @@ const MenuItems = () => {
       );
       const data = await res.data;
       setMenu(data.itemCards);
-      console.log(menu);
     } catch (error) {}
   };
+
+  console.log(menu);
+
   useEffect(() => {
     fetchMenu();
   }, []);
@@ -35,9 +37,27 @@ const MenuItems = () => {
               style={{
                 display: 'flex',
                 flexDirection: 'row',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                borderBottomWidth: 0.5,
+                marginHorizontal: 15,
+                marginBottom: 10,
               }}>
               <View>
+                {item?.card?.info?.itemAttribute?.vegClassifier === 'VEG' ? (
+                  <Image
+                    source={require('../../assests/images/icons8-veg-48.png')}
+                    style={{height: 20, width: 20}}
+                  />
+                ) : (
+                  <Image
+                    source={require('../../assests/images/non-veg-48.png')}
+                    style={{height: 20, width: 20}}
+                  />
+                )}
                 <Text>{item?.card?.info?.name}</Text>
+                <Text>{item?.card?.info?.itemAttribute?.portionSize}</Text>
+                <Text>₹{item?.card?.info?.price / 100}</Text>
               </View>
               <View>
                 <Image
@@ -48,6 +68,7 @@ const MenuItems = () => {
                     width: Dimensions.get('window').width / 4,
                     height: Dimensions.get('window').width / 4,
                     borderRadius: Dimensions.get('window').width / 20,
+                    // marginBottom:5
                   }}
                 />
               </View>
